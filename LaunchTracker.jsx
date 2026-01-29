@@ -13,7 +13,7 @@ const LaunchTracker = () => {
 
   // Color mapping based on primary (first) owner
   const ownerColors = {
-    'Owner': 'bg-blue-500',
+    'Ryan': 'bg-blue-500',
     'Adam': 'bg-emerald-500',
     'Heidi': 'bg-orange-500',
     'Monica': 'bg-purple-500',
@@ -24,7 +24,7 @@ const LaunchTracker = () => {
   };
 
   const ownerTextColors = {
-    'Owner': 'text-blue-500',
+    'Ryan': 'text-blue-500',
     'Adam': 'text-emerald-500',
     'Heidi': 'text-orange-500',
     'Monica': 'text-purple-500',
