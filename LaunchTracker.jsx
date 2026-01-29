@@ -143,10 +143,22 @@ const LaunchTracker = () => {
     return ['All', ...Array.from(ownersSet).sort()];
   };
 
-  // Filter tasks based on selected person
-  const filteredTasks = selectedFilter === 'All' 
+  // Status sort order (Pending -> In Progress -> Done)
+  const statusOrder = {
+    'Pending': 1,
+    'In Progress': 2,
+    'Done': 3
+  };
+
+  // Filter and sort tasks based on selected person and status
+  const filteredTasks = (selectedFilter === 'All' 
     ? tasks 
-    : tasks.filter(task => task.owners.includes(selectedFilter));
+    : tasks.filter(task => task.owners.includes(selectedFilter)))
+    .sort((a, b) => {
+      const orderA = statusOrder[a.status] || 999;
+      const orderB = statusOrder[b.status] || 999;
+      return orderA - orderB;
+    });
 
   // Generate month labels for timeline
   const generateMonthLabels = () => {
