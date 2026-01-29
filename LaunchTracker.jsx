@@ -34,8 +34,8 @@ const LaunchTracker = () => {
     'Milestone': 'text-red-500'
   };
 
-  // Timeline configuration (Jan 2026 - September 2026)
-  const timelineStart = new Date('2026-01-01');
+  // Timeline configuration (Dec 2025 - September 2026)
+  const timelineStart = new Date('2025-12-01');
   const timelineEnd = new Date('2026-09-30');
   const timelineDays = Math.ceil((timelineEnd - timelineStart) / (1000 * 60 * 60 * 24));
 
@@ -144,14 +144,23 @@ const LaunchTracker = () => {
   // Generate month labels for timeline
   const generateMonthLabels = () => {
     const months = [];
-    const current = new Date(timelineStart);
+    let year = timelineStart.getFullYear();
+    let month = timelineStart.getMonth();
+    const endYear = timelineEnd.getFullYear();
+    const endMonth = timelineEnd.getMonth();
     
-    while (current <= timelineEnd) {
+    while (year < endYear || (year === endYear && month <= endMonth)) {
+      const date = new Date(year, month, 1);
       months.push({
-        label: current.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
-        date: new Date(current)
+        label: date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+        date: date
       });
-      current.setMonth(current.getMonth() + 1);
+      
+      month++;
+      if (month > 11) {
+        month = 0;
+        year++;
+      }
     }
     
     return months;
