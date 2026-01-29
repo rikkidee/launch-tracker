@@ -278,17 +278,12 @@ const LaunchTracker = () => {
                 return (
                   <div key={task.id} className="flex hover:bg-gray-50 transition-colors">
                     {/* Task Name */}
-                    <div className="w-64 flex-shrink-0 px-4 py-4 border-r border-gray-200">
+                    <div className="w-64 flex-shrink-0 px-4 py-2 border-r border-gray-200 flex items-center">
                       <div className="font-medium text-gray-900 text-sm">{task.taskName}</div>
-                      <div className="text-xs text-gray-500 mt-1">
-                        <span className={`font-semibold ${ownerTextColors[primaryOwner] || 'text-gray-600'}`}>
-                          {task.owners.join(', ')}
-                        </span>
-                      </div>
                     </div>
                     
                     {/* Gantt Bar */}
-                    <div className="flex-grow relative py-4 px-2">
+                    <div className="flex-grow relative py-2 px-2">
                       <div className="relative h-8">
                         <div
                           className={`absolute h-full ${primaryColor} ${statusStyle.border} ${statusStyle.opacity} rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer group`}
