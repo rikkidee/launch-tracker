@@ -34,8 +34,8 @@ const LaunchTracker = () => {
     'Milestone': 'text-red-500'
   };
 
-  // Timeline configuration (Dec 2025 - September 2026)
-  const timelineStart = new Date('2025-12-01');
+  // Timeline configuration (Feb 2026 - September 2026)
+  const timelineStart = new Date('2026-02-01');
   const timelineEnd = new Date('2026-09-30');
   const timelineDays = Math.ceil((timelineEnd - timelineStart) / (1000 * 60 * 60 * 24));
 
