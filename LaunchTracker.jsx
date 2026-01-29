@@ -289,11 +289,6 @@ const LaunchTracker = () => {
                           className={`absolute h-full ${primaryColor} ${statusStyle.border} ${statusStyle.opacity} rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer group`}
                           style={barStyle}
                         >
-                          {/* Task Name on Bar */}
-                          <div className="h-full flex items-center px-3 text-white text-xs font-medium truncate">
-                            {task.taskName}
-                          </div>
-                          
                           {/* Hover Tooltip */}
                           <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 hidden group-hover:block z-20">
                             <div className="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 whitespace-nowrap shadow-lg">
