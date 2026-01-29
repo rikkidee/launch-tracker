@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import { RefreshCw, Calendar } from 'lucide-react';
 
-// Placeholder CSV URL - replace with your actual Google Sheets CSV export URL
-const CSV_URL = 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/export?format=csv';
+// Google Sheets CSV URL
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRs3g8n-aiQlJDW-eSVblG-_rbtsUzn8LX0QEj3VofDfmaL9Y56pz8ymedDnVmub-o_2zCOwv827T34/pub?gid=0&single=true&output=csv';
 
 const LaunchTracker = () => {
   const [tasks, setTasks] = useState([]);
@@ -34,9 +34,9 @@ const LaunchTracker = () => {
     'Milestone': 'text-red-500'
   };
 
-  // Timeline configuration (Feb 2026 - April 2026)
+  // Timeline configuration (Feb 2026 - September 2026)
   const timelineStart = new Date('2026-02-01');
-  const timelineEnd = new Date('2026-04-30');
+  const timelineEnd = new Date('2026-09-30');
   const timelineDays = Math.ceil((timelineEnd - timelineStart) / (1000 * 60 * 60 * 24));
 
   // Fetch and parse CSV data
@@ -58,17 +58,31 @@ const LaunchTracker = () => {
             // Primary owner is the first one
             const primaryOwner = owners[0] || 'Unknown';
             
+            // Better date parsing for M/D/YYYY format
+            const parseDate = (dateStr) => {
+              if (!dateStr) return null;
+              // Handle M/D/YYYY format
+              const parts = dateStr.split('/');
+              if (parts.length === 3) {
+                const month = parseInt(parts[0]) - 1; // Months are 0-indexed
+                const day = parseInt(parts[1]);
+                const year = parseInt(parts[2]);
+                return new Date(year, month, day);
+              }
+              return new Date(dateStr);
+            };
+            
             return {
               id: index,
               taskName: row.Task || row['Task Name'] || 'Unnamed Task',
               owners: owners,
               primaryOwner: primaryOwner,
-              startDate: row['Start Date'] ? new Date(row['Start Date']) : null,
-              endDate: row['End Date'] ? new Date(row['End Date']) : null,
+              startDate: parseDate(row['Start Date']),
+              endDate: parseDate(row['End Date']),
               status: row.Status || 'Not Started',
               color: ownerColors[primaryOwner] || 'bg-gray-500'
             };
-          }).filter(task => task.startDate && task.endDate);
+          }).filter(task => task.startDate && task.endDate && !isNaN(task.startDate.getTime()));
           
           setTasks(parsedTasks);
           setLoading(false);
