@@ -34,6 +34,13 @@ const LaunchTracker = () => {
     'Milestone': 'text-red-500'
   };
 
+  // Status border colors
+  const statusBorderColors = {
+    'Pending': 'border-red-500',
+    'In Progress': 'border-yellow-400',
+    'Done': 'border-green-500'
+  };
+
   // Timeline configuration (Feb 2026 - September 2026)
   const timelineStart = new Date('2026-02-01');
   const timelineEnd = new Date('2026-09-30');
@@ -266,6 +273,7 @@ const LaunchTracker = () => {
                 const barStyle = calculateBarStyle(task.startDate, task.endDate);
                 const primaryColor = task.color;
                 const primaryOwner = task.primaryOwner;
+                const statusBorder = statusBorderColors[task.status] || 'border-gray-400';
                 
                 return (
                   <div key={task.id} className="flex hover:bg-gray-50 transition-colors">
@@ -283,7 +291,7 @@ const LaunchTracker = () => {
                     <div className="flex-grow relative py-4 px-2">
                       <div className="relative h-8">
                         <div
-                          className={`absolute h-full ${primaryColor} rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer group`}
+                          className={`absolute h-full ${primaryColor} ${statusBorder} border-4 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer group`}
                           style={barStyle}
                         >
                           {/* Task Name on Bar */}
@@ -332,6 +340,25 @@ const LaunchTracker = () => {
             Note: Colors are based on the <strong>primary (first) owner</strong>. 
             Filtering shows all tasks where the selected person appears in the owner list.
           </p>
+          
+          {/* Status Legend */}
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">Status Legend (Border Colors)</h3>
+            <div className="flex flex-wrap gap-6">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-4 bg-gray-200 border-4 border-red-500 rounded"></div>
+                <span className="text-sm text-gray-600">Pending</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-4 bg-gray-200 border-4 border-yellow-400 rounded"></div>
+                <span className="text-sm text-gray-600">In Progress</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-4 bg-gray-200 border-4 border-green-500 rounded"></div>
+                <span className="text-sm text-gray-600">Done</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
