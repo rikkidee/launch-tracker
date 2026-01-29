@@ -34,11 +34,11 @@ const LaunchTracker = () => {
     'Milestone': 'text-red-500'
   };
 
-  // Status border colors
-  const statusBorderColors = {
-    'Pending': 'border-red-500',
-    'In Progress': 'border-yellow-400',
-    'Done': 'border-green-500'
+  // Status indicators (left-edge stripe + opacity)
+  const statusStyles = {
+    'Pending': { border: 'border-l-8 border-red-500', opacity: 'opacity-60' },
+    'In Progress': { border: 'border-l-8 border-yellow-400', opacity: 'opacity-100' },
+    'Done': { border: 'border-l-8 border-green-500', opacity: 'opacity-90' }
   };
 
   // Timeline configuration (Feb 2026 - September 2026)
@@ -273,7 +273,7 @@ const LaunchTracker = () => {
                 const barStyle = calculateBarStyle(task.startDate, task.endDate);
                 const primaryColor = task.color;
                 const primaryOwner = task.primaryOwner;
-                const statusBorder = statusBorderColors[task.status] || 'border-gray-400';
+                const statusStyle = statusStyles[task.status] || { border: 'border-l-8 border-gray-400', opacity: 'opacity-100' };
                 
                 return (
                   <div key={task.id} className="flex hover:bg-gray-50 transition-colors">
@@ -291,7 +291,7 @@ const LaunchTracker = () => {
                     <div className="flex-grow relative py-4 px-2">
                       <div className="relative h-8">
                         <div
-                          className={`absolute h-full ${primaryColor} ${statusBorder} border-4 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer group`}
+                          className={`absolute h-full ${primaryColor} ${statusStyle.border} ${statusStyle.opacity} rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer group`}
                           style={barStyle}
                         >
                           {/* Task Name on Bar */}
@@ -343,21 +343,24 @@ const LaunchTracker = () => {
           
           {/* Status Legend */}
           <div className="mt-6 pt-6 border-t border-gray-200">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">Status Legend (Border Colors)</h3>
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">Status Indicators (Left-Edge Stripe)</h3>
             <div className="flex flex-wrap gap-6">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-4 bg-gray-200 border-4 border-red-500 rounded"></div>
-                <span className="text-sm text-gray-600">Pending</span>
+                <div className="w-12 h-6 bg-blue-200 border-l-8 border-red-500 rounded opacity-60"></div>
+                <span className="text-sm text-gray-600">Pending (faded)</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-8 h-4 bg-gray-200 border-4 border-yellow-400 rounded"></div>
+                <div className="w-12 h-6 bg-blue-200 border-l-8 border-yellow-400 rounded opacity-100"></div>
                 <span className="text-sm text-gray-600">In Progress</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-8 h-4 bg-gray-200 border-4 border-green-500 rounded"></div>
+                <div className="w-12 h-6 bg-blue-200 border-l-8 border-green-500 rounded opacity-90"></div>
                 <span className="text-sm text-gray-600">Done</span>
               </div>
             </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Pending tasks appear faded to focus attention on active and completed work.
+            </p>
           </div>
         </div>
       </div>
