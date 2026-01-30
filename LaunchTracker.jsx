@@ -251,6 +251,45 @@ const LaunchTracker = () => {
           </div>
         </div>
 
+        {/* Legend */}
+        <div className="mb-6 bg-white rounded-lg shadow-sm p-6">
+          <h3 className="text-sm font-semibold text-gray-700 mb-3">Color Legend (Primary Owner)</h3>
+          <div className="flex flex-wrap gap-4">
+            {Object.entries(ownerColors).map(([owner, color]) => (
+              <div key={owner} className="flex items-center gap-2">
+                <div className={`w-4 h-4 ${color} rounded`}></div>
+                <span className="text-sm text-gray-600">{owner}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-gray-500 mt-3">
+            Note: Colors are based on the <strong>primary (first) owner</strong>. 
+            Filtering shows all tasks where the selected person appears in the owner list.
+          </p>
+          
+          {/* Status Legend */}
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">Status Indicators (Left-Edge Stripe)</h3>
+            <div className="flex flex-wrap gap-6">
+              <div className="flex items-center gap-2">
+                <div className="w-12 h-6 bg-blue-200 border-l-8 border-red-500 rounded opacity-60"></div>
+                <span className="text-sm text-gray-600">Pending (faded)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-12 h-6 bg-blue-200 border-l-8 border-yellow-400 rounded opacity-100"></div>
+                <span className="text-sm text-gray-600">In Progress</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-12 h-6 bg-blue-200 border-l-8 border-green-500 rounded opacity-90"></div>
+                <span className="text-sm text-gray-600">Done</span>
+              </div>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Pending tasks appear faded to focus attention on active and completed work.
+            </p>
+          </div>
+        </div>
+
         {/* Gantt Chart */}
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           {/* Timeline Header */}
@@ -324,45 +363,6 @@ const LaunchTracker = () => {
                 );
               })
             )}
-          </div>
-        </div>
-
-        {/* Legend */}
-        <div className="mt-6 bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-sm font-semibold text-gray-700 mb-3">Color Legend (Primary Owner)</h3>
-          <div className="flex flex-wrap gap-4">
-            {Object.entries(ownerColors).map(([owner, color]) => (
-              <div key={owner} className="flex items-center gap-2">
-                <div className={`w-4 h-4 ${color} rounded`}></div>
-                <span className="text-sm text-gray-600">{owner}</span>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs text-gray-500 mt-3">
-            Note: Colors are based on the <strong>primary (first) owner</strong>. 
-            Filtering shows all tasks where the selected person appears in the owner list.
-          </p>
-          
-          {/* Status Legend */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">Status Indicators (Left-Edge Stripe)</h3>
-            <div className="flex flex-wrap gap-6">
-              <div className="flex items-center gap-2">
-                <div className="w-12 h-6 bg-blue-200 border-l-8 border-red-500 rounded opacity-60"></div>
-                <span className="text-sm text-gray-600">Pending (faded)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-12 h-6 bg-blue-200 border-l-8 border-yellow-400 rounded opacity-100"></div>
-                <span className="text-sm text-gray-600">In Progress</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-12 h-6 bg-blue-200 border-l-8 border-green-500 rounded opacity-90"></div>
-                <span className="text-sm text-gray-600">Done</span>
-              </div>
-            </div>
-            <p className="text-xs text-gray-500 mt-2">
-              Pending tasks appear faded to focus attention on active and completed work.
-            </p>
           </div>
         </div>
       </div>
